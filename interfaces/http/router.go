@@ -6,11 +6,14 @@ import (
 	"book-ddd/interfaces/http/handler"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"gorm.io/gorm"
 )
 
 func InitRouter(db *gorm.DB) *fiber.App {
 	app := fiber.New()
+
+	app.Use(cors.New())
 
 	repo := infraBook.NewMySQLRepo(db)
 	service := domainBook.NewService(repo)
